@@ -1,10 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="h-10">
+
+      <b-navbar toggleable="lg" type="dark" variant="warning" class="h-100">
+        <img src="./assets/logo.png" width="50" height="50" class="d-inline-block align-top" alt="">
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item href="/">Home</b-nav-item>
+            <b-nav-item href="/order">Order</b-nav-item>
+          </b-navbar-nav>
+  
+        </b-collapse>
+      </b-navbar>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -15,18 +27,12 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100vh;
 }
 
-#nav {
-  padding: 30px;
+.h-10{
+  height: 10%;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
