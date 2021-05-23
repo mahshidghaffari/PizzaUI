@@ -26,5 +26,12 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "path-autocomplete.excludedItems": {
+    "**/*.js": { "when": "**/*.ts" },
+    "**/*.map": { "when": "**" },
+    "**/{.git,node_modules}": { "when": "**" }, 
+    "**": { "when": "**", "isDir": true },
+    "**/*.ts": { "when": "**", "context": "import.*" }
+}
 }

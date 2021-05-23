@@ -1,5 +1,5 @@
 <template>
-  <div class="h-90">
+  <div class="h-90 slide_container">
     <b-carousel
       id="carousel-1"
       v-model="slide"
@@ -14,44 +14,31 @@
       @sliding-end="onSlideEnd"
       class="h-100"
     >
-      <!-- Text slides with image -->
+       <!-- Slides with image only -->
       <b-carousel-slide
-      
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
+        img-src="https://cdn.winsightmedia.com/platform/files/public/2019-03/background/slices-pizza-Shutterstock_1551894182.jpg?gmt0HTnRT9vAN3CbWtjUdG5ZFCfB6CFB"
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
+      <b-carousel-slide
+        img-src="http://www.restaurantnews.com/wp-content/uploads/2014/03/2014-Pizza-Industry-Landscape-The-Pizza-Industry-is-A-Casual-Dining-Staple.jpg"
+      ></b-carousel-slide>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+   
+
+        <!-- Text slides with image -->
+      <b-carousel-slide
+        img-src="https://hips.hearstapps.com/del.h-cdn.co/assets/17/26/1600x800/landscape-1498518969-delish-pizza-with-the-most-pepperoni-3.jpg?resize=1200:*"
+      ></b-carousel-slide>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          />
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
     </b-carousel>
+    <div class="f-btn btn_menu w-75 px-auto">
+      <b-button class="mx-5 w-25 py-2 f-btn" animation="cylon" pill variant="warning" href="/order"> Order
+      </b-button>
+      <b-button class="mx-5 w-25 py-2 f-btn" pill variant="danger" href="/order">track Order</b-button>
+    </div>
   </div>
 </template>
 
@@ -82,11 +69,29 @@ export default {
 </script>
 
 <style >
-  .carousel-inner{
+.carousel-inner {
   height: 100% !important;
-  }
+}
 
-  .h-90{
-    height: 90%;
-  }
+.f-btn{
+  font-size: 25px !important;
+}
+
+.h-90 {
+  height: 90%;
+}
+
+.btn_menu {
+  position: fixed;
+  top: 50%;
+  right: 10%;
+}
+
+.slide_container {
+  position: relative;
+}
+
+.sr-only {
+  display: none !important;
+}
 </style>
