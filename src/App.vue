@@ -2,8 +2,9 @@
   <div id="app">
     <div id="nav" class="h-10">
       <b-navbar toggleable="lg" type="dark" variant="warning" class="h-100">
-        <img src="./assets/logo.png" width="80" height="80" class="d-inline-block align-top" style="margin-right:100px; margin-left:50px;" />
-
+        <a href="/">
+        <img  src="./assets/logo.png" width="80" height="80" class="d-inline-block align-top" style="margin-right:100px; margin-left:50px;" />
+        </a>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>

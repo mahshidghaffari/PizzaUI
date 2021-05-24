@@ -27,7 +27,7 @@
         </b-button>
       </b-col>
     </b-row>
-    <b-row class="pt-1 bg-main m-2 pt-4 px-3" style="border-radius: 15px;">
+    <b-row class="pt-1 bg-main m-2 pt-4 px-3 justify-content-center" style="border-radius: 15px;">
       <!---------------------------------------------menu----------------------------------------------------->
       <b-col cols="3" v-for="(pizza , index) in pizzas" :key="index" v-show="showMenu">
         <b-card
@@ -51,12 +51,12 @@
           </b-card-text>
           <b-row>
             <b-col>
-              <b-button @click="toggleModal(pizza.pizza_ID)" variant="success" class="w-100">Add</b-button>
+              <b-button @click="addPizza(pizza.pizza_id)" variant="success" class="w-100">Add</b-button>
             </b-col>
             <b-col>
               <b-button
                 v-b-modal.modal-1
-                @click="getTopping(pizza.pizza_ID)"
+                @click="getTopping(pizza.pizza_id)"
                 variant="warning"
                 class="w-100"
                 v-model="pizza.id"
@@ -69,7 +69,7 @@
       <b-col cols="8" v-show="showBascket && !showDelInfo">
         <b-form @submit="onSubmitOrder(order)" @reset="onResetOrder()">
           <b-row>
-            <b-col cols="10" class="pr-5">
+            <b-col cols="8" class="pr-5">
               <!---------------costumerID------------------->
               <b-form-group
                 id="input-group-1"
@@ -79,7 +79,7 @@
               >
                 <b-form-input
                   id="input-1"
-                  v-model="order.costumerID"
+                  v-model="order.customer_id"
                   type="number"
                   placeholder="Enter your Costumer ID"
                   required
@@ -89,7 +89,7 @@
               <b-form-group id="input-group-1" label="Country:" label-for="input-1" class="mb-3">
                 <b-form-input
                   id="input-1"
-                  v-model="order.deliveryAdress.COUNTRY"
+                  v-model="order.delivery_address.country"
                   placeholder="Country"
                   required
                 ></b-form-input>
@@ -98,7 +98,7 @@
               <b-form-group id="input-group-1" label="City:" label-for="input-1" class="mb-3">
                 <b-form-input
                   id="input-1"
-                  v-model="order.deliveryAdress.CITY"
+                  v-model="order.delivery_address.city"
                   placeholder="City"
                   required
                 ></b-form-input>
@@ -107,7 +107,7 @@
               <b-form-group id="input-group-1" label="Street:" label-for="input-1" class="mb-3">
                 <b-form-input
                   id="input-1"
-                  v-model="order.deliveryAdress.STREET"
+                  v-model="order.delivery_address.street"
                   placeholder="Street"
                   required
                   class="inline-block"
@@ -117,46 +117,55 @@
               <b-form-group id="input-group-1" label="ZipCode:" label-for="input-1" class="mb-3">
                 <b-form-input
                   id="input-1"
-                  v-model="order.deliveryAdress.ZIPCODE"
+                  v-model="order.delivery_address.zipcode"
                   placeholder="ZipCode"
                   required
                   class="inline-block"
                 ></b-form-input>
               </b-form-group>
-
-              <div class="mt-1 text-secondary">
-                Selected:
-                <strong>{{ order.paymentType }}</strong>
-              </div>
+              <!---------------note------------------->
+              <b-form-group id="input-group-1" label="Any Notes:" label-for="input-1" class="mb-3">
+                <b-form-input
+                  id="input-1"
+                  v-model="order.note"
+                  placeholder="Write your note ..."
+                  required
+                  class="inline-block"
+                ></b-form-input>
+              </b-form-group>
             </b-col>
-            <b-col>
-              <!---------------Payment Method------------------->
 
+            <!---------------Payment Method------------------->
+            <b-col>
               <b-form-group label="Payment Method:" v-slot="{ ariaDescribedby }">
                 <b-form-radio
-                  v-model="order.paymentType"
+                  v-model="order.payment_type"
                   :aria-describedby="ariaDescribedby"
                   name="paymentType"
                   value="cash"
                   class="pl-5"
                 >Cash</b-form-radio>
                 <b-form-radio
-                  v-model="order.paymentType"
+                  v-model="order.payment_type"
                   :aria-describedby="ariaDescribedby"
                   name="paymentType"
                   value="creditcard"
                 >Credit Card</b-form-radio>
               </b-form-group>
+              <div class="mt-1 text-secondary">
+                Selected:
+                <strong>{{ order.payment_type }}</strong>
+              </div>
               <!---------------Take a way------------------->
               <b-form-group label="Delivery status:" v-slot="{ ariaDescribedby }">
                 <b-form-radio
-                  v-model="order.takeAway"
+                  v-model="order.takeaway"
                   :aria-describedby="ariaDescribedby"
                   name="takeAway"
                   value="false"
                 >Pick UP</b-form-radio>
                 <b-form-radio
-                  v-model="order.takeAway"
+                  v-model="order.takeaway"
                   :aria-describedby="ariaDescribedby"
                   name="takeAway"
                   value="true"
@@ -166,25 +175,28 @@
           </b-row>
 
           <!---------------------/////////------------------->
-          <div class="mt-5 text-center mb-3">
-            <b-button type="reset" variant="danger" class="w-40">Cancel</b-button>
-            <b-button type="submit" variant="outline-success" class="w-40 mx-3">Submit</b-button>
-          </div>
+          <b-row>
+            <b-col class="mt-5 text-center mb-3">
+              <b-button type="reset" variant="danger" class="w-25">Cancel</b-button>
+              <b-button type="submit" variant="success" class="w-25 mx-3">Submit</b-button>
+            </b-col>
+          </b-row>
         </b-form>
       </b-col>
       <!---------------------------------------------Del Info----------------------------------------------------->
       <b-col cols="8" v-show="showDelInfo" class="pb-5">
-        <p class="my-2">Delivery Time :{{retunOrder.deliveryTime}}</p>
+        <p class="my-2">Delivery Time :{{retunOrder.delivery_time}}</p>
         <p class="my-2">Status :{{retunOrder.status}}</p>
-        <p class="my-2">costumer_ID :{{retunOrder.costumer_ID}}</p>
+        <p class="my-2">customer_id :{{retunOrder.customer_id}}</p>
         <p class="my-2">
-          Addrees :{{retunOrder.deliveryaddress.zipcode}},
-          {{retunOrder.deliveryaddress.street}},
-          {{retunOrder.deliveryaddress.city}},{{retunOrder.deliveryaddress.country}}
+          Addrees :{{retunOrder.delivery_address.zipcode}},
+          {{retunOrder.delivery_address.street}},
+          {{retunOrder.delivery_address.city}},{{retunOrder.delivery_address.country}}
         </p>
-        <p class="my-2">order ID:{{retunOrder.order_ID}}</p>
-        <p class="my-2">ordered AT :{{retunOrder.ordered_AT}}</p>
-        <p class="my-2">Payment Type :{{retunOrder.paymentType}}</p>
+        <p class="my-2">order id:{{retunOrder.order_id}}</p>
+        <p class="my-2">ordered AT :{{retunOrder.ordered_at}}</p>
+        <p class="my-2">Payment Type :{{retunOrder.payment_type}}</p>
+        <p class="my-2">Note :{{retunOrder.note}}</p>
         <p
           class="my-2"
           v-for="(pizza, index) in retunOrder.pizzas"
@@ -196,7 +208,7 @@
         <b-button
           variant="danger"
           class="w-40"
-          @click="CancelOrder(retunOrder.order_ID)"
+          @click="CancelOrder(retunOrder.order_id)"
         >Cancel Order</b-button>
         <b-button variant="outline-success" class="w-40 mx-3" href="/">Back</b-button>
       </b-col>
@@ -216,7 +228,7 @@
 
     <!---------------------------------------------modal----------------------------------------------------->
     <b-modal id="modal-1" hide-footer :title="pizzaTopping.name" style="display:block;">
-      <div v-for="(item, index) in pizzaTopping.topping" :key="index">
+      <div v-for="(item, index) in pizzaTopping.toppings" :key="index">
         <p class="my-2">{{item}}</p>
       </div>
     </b-modal>
@@ -235,7 +247,9 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080/";
+// this for bacck API
+axios.defaults.baseURL = "http://localhost:8080/api/";
+
 export default {
   name: "App",
   components: {},
@@ -256,27 +270,29 @@ export default {
       pizzaNote: "",
       tempId: 0,
       order: {
-        costumerID: null,
-        takeAway: null,
-        paymentType: null,
-        deliveryAdress: {
-          STREET: null,
-          CITY: null,
-          COUNTRY: null,
-          ZIPCODE: null
+        customer_id: null,
+        takeaway: null,
+        payment_type: null,
+        delivery_address: {
+          street: null,
+          city: null,
+          country: null,
+          zipcode: null
         },
-        pizzas: []
+        pizzas: [],
+        note: null
       },
       retunOrder: {
+        note:null,
         status: "",
-        deliveryTime: "02:19:13.914457",
+        delivery_time: "02:19:13.914457",
         pizzas: [],
-        costumer_ID: 1111,
-        order_ID: 19,
-        ordered_AT: "2021-05-23T01:59:13.914457",
+        customer_id: 1111,
+        order_id: 19,
+        ordered_at: "2021-05-23T01:59:13.914457",
         takeaway: false,
-        paymentType: "cash",
-        deliveryaddress: {
+        payment_type: null,
+        delivery_address: {
           street: "null",
           city: "null",
           country: "yo",
@@ -289,7 +305,7 @@ export default {
     getPizza() {
       return axios({
         method: "get",
-        url: "api/v1/pizza",
+        url: "/pizza",
         changeOrigin: true
       });
     },
@@ -297,11 +313,11 @@ export default {
     CancelOrder(orderid) {
       return axios({
         method: "put",
-        url: "api/v1/pizza/order/cancel/" + orderid,
+        url: "/order/cancel/" + orderid,
         changeOrigin: true
       })
         .then(response => {
-          alert("order " + response.data.order_ID + "  has been canceled");
+          alert("order " + response.data.order_id + "  has been canceled");
           console.log("man injam");
           window.location.href = "/";
         })
@@ -313,7 +329,7 @@ export default {
     getTopping(id) {
       return axios({
         method: "get",
-        url: "api/v1/pizza/" + id,
+        url: "/pizza/" + id,
         changeOrigin: true
       })
         .then(response => {
@@ -324,27 +340,24 @@ export default {
           console.log("the error has occured: " + error);
         });
     },
-    addPizza(pizzaNote) {
-      this.order.pizzas.push({ id: this.tempId, note: pizzaNote });
-      this.tempId = 0;
-      this.pizzaNote = "";
-      this.hideModal();
-      console.log(this.order.pizzas);
+    addPizza(pizza_id) {
+      this.order.pizzas.push(pizza_id);
+      console.log(pizza_id);
     },
 
-    toggleModal(id) {
-      this.tempId = id;
-      this.$refs["add-pizza-modal"].toggle("#toggle-btn");
-    },
+    // toggleModal(id) {
+    //   this.tempId = id;
+    //   this.$refs["add-pizza-modal"].toggle("#toggle-btn");
+    // },
     hideModal() {
       this.$refs["add-pizza-modal"].hide();
     },
     onSubmitOrder(order) {
       event.preventDefault();
-      alert("Do you conferm this order ?");
+      alert("Do you confirm this order ?");
       return axios({
         method: "post",
-        url: "api/v1/pizza/order",
+        url: "/order",
         data: order
       })
         .then(response => {
@@ -361,24 +374,24 @@ export default {
       console.log("this is on reset");
       if (
         this.order == null ||
-        this.order.costumerID == null ||
-        this.order.takeAway == null ||
-        this.order.paymentType == null ||
-        this.order.costumerID == null ||
-        this.order.costumerID == null ||
+        this.order.customer_id == null ||
+        this.order.takeaway == null ||
+        this.order.payment_type == null ||
+        this.order.customer_id == null ||
+        this.order.customer_id == null ||
         this.order.pizzas == []
       ) {
         alert("your information is not compelet");
       } else {
         this.order = {
-          costumerID: null,
-          takeAway: null,
-          paymentType: null,
-          deliveryAdress: {
-            STREET: null,
-            CITY: null,
-            COUNTRY: null,
-            ZIPCODE: null
+          customer_id: null,
+          takeaway: null,
+          payment_type: null,
+          delivery_address: {
+            street: null,
+            city: null,
+            country: null,
+            zipcode: null
           },
           pizzas: []
         };
@@ -395,7 +408,7 @@ export default {
     getDelivearyTime(orderid) {
       return axios({
         method: "get",
-        url: "api/v1/pizza/order/deliverytime/" + orderid,
+        url: "/order/deliverytime/" + orderid,
         changeOrigin: true
       })
         .then(response => {
