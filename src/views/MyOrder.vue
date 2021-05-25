@@ -80,7 +80,7 @@
 <script>
 import axios from "axios";
 // this for bacck API
-axios.defaults.baseURL = "http://localhost:8080/api/";
+axios.defaults.baseURL = "http://localhost:8080/api";
 
 export default {
   name: "App",
@@ -135,7 +135,7 @@ export default {
       })
         .then(response => {
           this.showDeliveryTime = true;
-          this.finalDeliveryTime = response.data;
+          this.finalDeliveryTime = response.data.delivery_time;
           this.showOrderDetail = false;
           this.showCancelOrder= false;
         })

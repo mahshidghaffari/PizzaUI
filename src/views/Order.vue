@@ -185,30 +185,30 @@
       </b-col>
       <!---------------------------------------------Del Info----------------------------------------------------->
       <b-col cols="8" v-show="showDelInfo" class="pb-5">
-        <p class="my-2">Delivery Time :{{retunOrder.delivery_time}}</p>
-        <p class="my-2">Status :{{retunOrder.status}}</p>
-        <p class="my-2">customer_id :{{retunOrder.customer_id}}</p>
+        <p class="my-2">Delivery Time :{{returnOrder.delivery_time}}</p>
+        <p class="my-2">Status :{{returnOrder.order.status}}</p>
+        <p class="my-2">customer_id :{{returnOrder.order.customer_id}}</p>
         <p class="my-2">
-          Addrees :{{retunOrder.delivery_address.zipcode}},
-          {{retunOrder.delivery_address.street}},
-          {{retunOrder.delivery_address.city}},{{retunOrder.delivery_address.country}}
+          Addrees :{{returnOrder.order.delivery_address.zipcode}},
+          {{returnOrder.order.delivery_address.street}},
+          {{returnOrder.order.delivery_address.city}},{{returnOrder.order.delivery_address.country}}
         </p>
-        <p class="my-2">order id:{{retunOrder.order_id}}</p>
-        <p class="my-2">ordered AT :{{retunOrder.ordered_at}}</p>
-        <p class="my-2">Payment Type :{{retunOrder.payment_type}}</p>
-        <p class="my-2">Note :{{retunOrder.note}}</p>
+        <p class="my-2">order id:{{returnOrder.order.order_id}}</p>
+        <p class="my-2">ordered AT :{{returnOrder.order.ordered_at}}</p>
+        <p class="my-2">Payment Type :{{returnOrder.order.payment_type}}</p>
+        <p class="my-2">Note :{{returnOrder.order.note}}</p>
         <p
           class="my-2"
-          v-for="(pizza, index) in retunOrder.pizzas"
+          v-for="(pizza, index) in returnOrder.order.pizzas"
           :key="index"
         >pizza :{{pizza.name}}</p>
-        <p class="my-2" v-if="!retunOrder.takeaway">Takeaway : No</p>
+        <p class="my-2" v-if="!returnOrder.order.takeaway">Takeaway : No</p>
         <p class="my-2" v-else>Takeaway : Yes</p>
 
         <b-button
           variant="danger"
           class="w-40"
-          @click="CancelOrder(retunOrder.order_id)"
+          @click="CancelOrder(returnOrder.order.order_id)"
         >Cancel Order</b-button>
         <b-button variant="outline-success" class="w-40 mx-3" href="/">Back</b-button>
       </b-col>
@@ -282,21 +282,26 @@ export default {
         pizzas: [],
         note: null
       },
-      retunOrder: {
-        note:null,
-        status: "",
-        delivery_time: "02:19:13.914457",
-        pizzas: [],
-        customer_id: 1111,
-        order_id: 19,
+
+      returnOrder: {
         ordered_at: "2021-05-23T01:59:13.914457",
-        takeaway: false,
-        payment_type: null,
-        delivery_address: {
-          street: "null",
-          city: "null",
-          country: "yo",
-          zipcode: 1111
+        delivery_time: "02:19:13.914457",
+        order: {
+          note: null,
+          status: "",
+          delivery_time: "02:19:13.914457",
+          pizzas: [],
+          customer_id: 1111,
+          order_id: 19,
+          ordered_at: "2021-05-23T01:59:13.914457",
+          takeaway: false,
+          payment_type: null,
+          delivery_address: {
+            street: "null",
+            city: "null",
+            country: "yo",
+            zipcode: 1111
+          }
         }
       }
     };
@@ -345,10 +350,6 @@ export default {
       console.log(pizza_id);
     },
 
-    // toggleModal(id) {
-    //   this.tempId = id;
-    //   this.$refs["add-pizza-modal"].toggle("#toggle-btn");
-    // },
     hideModal() {
       this.$refs["add-pizza-modal"].hide();
     },
@@ -361,8 +362,8 @@ export default {
         data: order
       })
         .then(response => {
-          this.retunOrder = response.data;
-          console.log(this.retunOrder);
+          console.log("man injam  hminja");
+          this.returnOrder = response.data;
           this.showDelInfo = true;
           this.showBascket = false;
         })
