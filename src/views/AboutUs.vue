@@ -2,8 +2,8 @@
   <b-row>
     <b-col cols="8" class="bg-warning m-5 p-5 ">
       <h1>Team Members:</h1>
-      <h4>Parand Mohri     <span class="text-primary">i6234307</span></h4>
-      <h4>Mahshid Ghaffari    <span class="text-primary">i6255207</span></h4>
+      <h4>Parand Mohri<span class="text-primary">i6234307</span></h4>
+      <h4>Mahshid Ghaffari<span class="text-primary">i6255207</span></h4>
     </b-col>
   </b-row>
 </template>

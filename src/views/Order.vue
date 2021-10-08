@@ -1,21 +1,21 @@
 <template>
-  <b-container class="bv-example-row pb-3">
-    <b-row>
-      <b-col cols="12" class="my-2 pt-4">
+  <b-container class="bv-example-row pb-3 h-90">
+    <b-row class="h-10">
+      <b-col cols="12" class="pt-2">
         <b-button
           pill
           variant="outline-success"
-          style="float: right;"
+          style="float: right"
           @click="showModalBasket()"
           v-show="showMenu"
         >
-          <span class="text-danger mx-3">{{order.pizzas.length}}</span>
+          <span class="text-danger mx-3">{{ order.pizzas.length }}</span>
           <b-icon icon="basket3" />
         </b-button>
         <b-button
           pill
           variant="outline-danger"
-          style="float: right;"
+          style="float: right"
           @click="showModalMenu()"
           v-show="showBascket"
         >
@@ -27,44 +27,12 @@
         </b-button>
       </b-col>
     </b-row>
-    <b-row class="pt-1 bg-main m-2 pt-4 px-3 justify-content-center" style="border-radius: 15px;">
+    <b-row
+      class="bg-main pt-4 px-3 justify-content-center h-90"
+      style="border-radius: 15px"
+    >
       <!---------------------------------------------menu----------------------------------------------------->
-      <b-col cols="3" v-for="(pizza , index) in pizzas" :key="index" v-show="showMenu">
-        <b-card
-          :title="pizza.name"
-          :img-src="urlImg"
-          img-alt="pizza Image"
-          img-top
-          class="mb-3 pic-pizza"
-        >
-          <b-card-text>
-            <p class="mb-0">
-              Vegetarian :
-              <span v-if="pizza.vegetarian" class="text-success">YES</span>
-              <span v-else class="text-danger">NO</span>
-            </p>
-
-            <p class="mb-0">
-              Price :
-              <span class="text-success">{{pizza.price}} $</span>
-            </p>
-          </b-card-text>
-          <b-row>
-            <b-col>
-              <b-button @click="addPizza(pizza.pizza_id)" variant="success" class="w-100">Add</b-button>
-            </b-col>
-            <b-col>
-              <b-button
-                v-b-modal.modal-1
-                @click="getTopping(pizza.pizza_id)"
-                variant="warning"
-                class="w-100"
-                v-model="pizza.id"
-              >Topping</b-button>
-            </b-col>
-          </b-row>
-        </b-card>
-      </b-col>
+      <!-- <PizzaMenu></PizzaMenu> -->
       <!---------------------------------------------Basket----------------------------------------------------->
       <b-col cols="8" v-show="showBascket && !showDelInfo">
         <b-form @submit="onSubmitOrder(order)" @reset="onResetOrder()">
@@ -86,7 +54,12 @@
                 ></b-form-input>
               </b-form-group>
               <!---------------country------------------->
-              <b-form-group id="input-group-1" label="Country:" label-for="input-1" class="mb-3">
+              <b-form-group
+                id="input-group-1"
+                label="Country:"
+                label-for="input-1"
+                class="mb-3"
+              >
                 <b-form-input
                   id="input-1"
                   v-model="order.delivery_address.country"
@@ -95,7 +68,12 @@
                 ></b-form-input>
               </b-form-group>
               <!---------------city------------------->
-              <b-form-group id="input-group-1" label="City:" label-for="input-1" class="mb-3">
+              <b-form-group
+                id="input-group-1"
+                label="City:"
+                label-for="input-1"
+                class="mb-3"
+              >
                 <b-form-input
                   id="input-1"
                   v-model="order.delivery_address.city"
@@ -104,7 +82,12 @@
                 ></b-form-input>
               </b-form-group>
               <!---------------street------------------->
-              <b-form-group id="input-group-1" label="Street:" label-for="input-1" class="mb-3">
+              <b-form-group
+                id="input-group-1"
+                label="Street:"
+                label-for="input-1"
+                class="mb-3"
+              >
                 <b-form-input
                   id="input-1"
                   v-model="order.delivery_address.street"
@@ -114,7 +97,12 @@
                 ></b-form-input>
               </b-form-group>
               <!---------------zipcode------------------->
-              <b-form-group id="input-group-1" label="ZipCode:" label-for="input-1" class="mb-3">
+              <b-form-group
+                id="input-group-1"
+                label="ZipCode:"
+                label-for="input-1"
+                class="mb-3"
+              >
                 <b-form-input
                   id="input-1"
                   v-model="order.delivery_address.zipcode"
@@ -124,7 +112,12 @@
                 ></b-form-input>
               </b-form-group>
               <!---------------note------------------->
-              <b-form-group id="input-group-1" label="Any Notes:" label-for="input-1" class="mb-3">
+              <b-form-group
+                id="input-group-1"
+                label="Any Notes:"
+                label-for="input-1"
+                class="mb-3"
+              >
                 <b-form-input
                   id="input-1"
                   v-model="order.note"
@@ -137,39 +130,49 @@
 
             <!---------------Payment Method------------------->
             <b-col>
-              <b-form-group label="Payment Method:" v-slot="{ ariaDescribedby }">
+              <b-form-group
+                label="Payment Method:"
+                v-slot="{ ariaDescribedby }"
+              >
                 <b-form-radio
                   v-model="order.payment_type"
                   :aria-describedby="ariaDescribedby"
                   name="paymentType"
                   value="cash"
                   class="pl-5"
-                >Cash</b-form-radio>
+                  >Cash</b-form-radio
+                >
                 <b-form-radio
                   v-model="order.payment_type"
                   :aria-describedby="ariaDescribedby"
                   name="paymentType"
                   value="creditcard"
-                >Credit Card</b-form-radio>
+                  >Credit Card</b-form-radio
+                >
               </b-form-group>
               <div class="mt-1 text-secondary">
                 Selected:
                 <strong>{{ order.payment_type }}</strong>
               </div>
               <!---------------Take a way------------------->
-              <b-form-group label="Delivery status:" v-slot="{ ariaDescribedby }">
+              <b-form-group
+                label="Delivery status:"
+                v-slot="{ ariaDescribedby }"
+              >
                 <b-form-radio
                   v-model="order.takeaway"
                   :aria-describedby="ariaDescribedby"
                   name="takeAway"
                   value="false"
-                >Pick UP</b-form-radio>
+                  >Pick UP</b-form-radio
+                >
                 <b-form-radio
                   v-model="order.takeaway"
                   :aria-describedby="ariaDescribedby"
                   name="takeAway"
                   value="true"
-                >TakeAway</b-form-radio>
+                  >TakeAway</b-form-radio
+                >
               </b-form-group>
             </b-col>
           </b-row>
@@ -177,31 +180,39 @@
           <!---------------------/////////------------------->
           <b-row>
             <b-col class="mt-5 text-center mb-3">
-              <b-button type="reset" variant="danger" class="w-25">Cancel</b-button>
-              <b-button type="submit" variant="success" class="w-25 mx-3">Submit</b-button>
+              <b-button type="reset" variant="danger" class="w-25"
+                >Cancel</b-button
+              >
+              <b-button type="submit" variant="success" class="w-25 mx-3"
+                >Submit</b-button
+              >
             </b-col>
           </b-row>
         </b-form>
       </b-col>
       <!---------------------------------------------Del Info----------------------------------------------------->
       <b-col cols="8" v-show="showDelInfo" class="pb-5">
-        <p class="my-2">Delivery Time :{{returnOrder.delivery_time}}</p>
-        <p class="my-2">Status :{{returnOrder.order.status}}</p>
-        <p class="my-2">customer_id :{{returnOrder.order.customer_id}}</p>
+        <p class="my-2">Delivery Time :{{ returnOrder.delivery_time }}</p>
+        <p class="my-2">Status :{{ returnOrder.order.status }}</p>
+        <p class="my-2">customer_id :{{ returnOrder.order.customer_id }}</p>
         <p class="my-2">
-          Addrees :{{returnOrder.order.delivery_address.zipcode}},
-          {{returnOrder.order.delivery_address.street}},
-          {{returnOrder.order.delivery_address.city}},{{returnOrder.order.delivery_address.country}}
+          Addrees :{{ returnOrder.order.delivery_address.zipcode }},
+          {{ returnOrder.order.delivery_address.street }},
+          {{ returnOrder.order.delivery_address.city }},{{
+            returnOrder.order.delivery_address.country
+          }}
         </p>
-        <p class="my-2">order id:{{returnOrder.order.order_id}}</p>
-        <p class="my-2">ordered AT :{{returnOrder.order.ordered_at}}</p>
-        <p class="my-2">Payment Type :{{returnOrder.order.payment_type}}</p>
-        <p class="my-2">Note :{{returnOrder.order.note}}</p>
+        <p class="my-2">order id:{{ returnOrder.order.order_id }}</p>
+        <p class="my-2">ordered AT :{{ returnOrder.order.ordered_at }}</p>
+        <p class="my-2">Payment Type :{{ returnOrder.order.payment_type }}</p>
+        <p class="my-2">Note :{{ returnOrder.order.note }}</p>
         <p
           class="my-2"
           v-for="(pizza, index) in returnOrder.order.pizzas"
           :key="index"
-        >pizza :{{pizza.name}}</p>
+        >
+          pizza :{{ pizza.name }}
+        </p>
         <p class="my-2" v-if="!returnOrder.order.takeaway">Takeaway : No</p>
         <p class="my-2" v-else>Takeaway : Yes</p>
 
@@ -209,35 +220,73 @@
           variant="danger"
           class="w-40"
           @click="CancelOrder(returnOrder.order.order_id)"
-        >Cancel Order</b-button>
-        <b-button variant="outline-success" class="w-40 mx-3" href="/">Back</b-button>
+          >Cancel Order</b-button
+        >
+        <b-button variant="outline-success" class="w-40 mx-3" href="/"
+          >Back</b-button
+        >
       </b-col>
 
       <!---------------------------------------------trackingOrderSection----------------------------------------------------->
       <b-col cols="8" v-show="trackingOrderSection" class="mt-5 pb-5">
         <strong class="mb-3">Enter your Order ID</strong>
-        <b-form-input v-model="orderIDTrack" required placeholder="Order ID ..." class="mb-4"></b-form-input>
+        <b-form-input
+          v-model="orderIDTrack"
+          required
+          placeholder="Order ID ..."
+          class="mb-4"
+        ></b-form-input>
 
         <div v-if="showOrderDetail" class="my-4">
-          <strong class="text-danger">Delivery Time :{{finalDeliveryTime}}</strong>
+          <strong class="text-danger"
+            >Delivery Time :{{ finalDeliveryTime }}</strong
+          >
         </div>
-        <b-button variant="danger" class="w-40" @click="getDelivearyTime(orderIDTrack)">Track</b-button>
-        <b-button variant="success" class="mx-3 w-40" href="/">Back to Menu</b-button>
+        <b-button
+          variant="danger"
+          class="w-40"
+          @click="getDelivearyTime(orderIDTrack)"
+          >Track</b-button
+        >
+        <b-button variant="success" class="mx-3 w-40" href="/"
+          >Back to Menu</b-button
+        >
       </b-col>
     </b-row>
 
     <!---------------------------------------------modal----------------------------------------------------->
-    <b-modal id="modal-1" hide-footer :title="pizzaTopping.name" style="display:block;">
+    <b-modal
+      id="modal-1"
+      hide-footer
+      :title="pizzaTopping.name"
+      style="display: block"
+    >
       <div v-for="(item, index) in pizzaTopping.toppings" :key="index">
-        <p class="my-2">{{item}}</p>
+        <p class="my-2">{{ item }}</p>
       </div>
     </b-modal>
 
-    <b-modal ref="add-pizza-modal" hide-footer hide-header :title="pizzaTopping.name">
+    <b-modal
+      ref="add-pizza-modal"
+      hide-footer
+      hide-header
+      :title="pizzaTopping.name"
+    >
       <div class="mt-3">
-        <b-form-input v-model="pizzaNote" required placeholder="Add note ..."></b-form-input>
-        <b-button variant="outline-danger" @click="hideModal" class="w-40 mx-4">Close</b-button>
-        <b-button @click="addPizza(pizzaNote)" variant="success" class="w-40 m-3">Add to Basket</b-button>
+        <b-form-input
+          v-model="pizzaNote"
+          required
+          placeholder="Add note ..."
+        ></b-form-input>
+        <b-button variant="outline-danger" @click="hideModal" class="w-40 mx-4"
+          >Close</b-button
+        >
+        <b-button
+          @click="addPizza(pizzaNote)"
+          variant="success"
+          class="w-40 m-3"
+          >Add to Basket</b-button
+        >
       </div>
     </b-modal>
   </b-container>
@@ -247,12 +296,15 @@
 
 <script>
 import axios from "axios";
+// import PizzaMenu from "../components/PizzaMenu.vue";
 // this for bacck API
-axios.defaults.baseURL = "http://localhost:8080/api/";
+axios.defaults.baseURL = "http://localhost:5000/";
 
 export default {
   name: "App",
-  components: {},
+  components: {
+    PizzaMenu,
+  },
   data() {
     return {
       urlImg: require("../assets/logo.png"),
@@ -277,10 +329,10 @@ export default {
           street: null,
           city: null,
           country: null,
-          zipcode: null
+          zipcode: null,
         },
         pizzas: [],
-        note: null
+        note: null,
       },
 
       returnOrder: {
@@ -300,10 +352,10 @@ export default {
             street: "null",
             city: "null",
             country: "yo",
-            zipcode: 1111
-          }
-        }
-      }
+            zipcode: 1111,
+          },
+        },
+      },
     };
   },
   methods: {
@@ -311,7 +363,7 @@ export default {
       return axios({
         method: "get",
         url: "/pizza",
-        changeOrigin: true
+        changeOrigin: true,
       });
     },
 
@@ -319,14 +371,14 @@ export default {
       return axios({
         method: "put",
         url: "/order/cancel/" + orderid,
-        changeOrigin: true
+        changeOrigin: true,
       })
-        .then(response => {
+        .then((response) => {
           alert("order " + response.data.order_id + "  has been canceled");
           console.log("man injam");
           window.location.href = "/";
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("the error has occured: " + error);
         });
     },
@@ -335,13 +387,13 @@ export default {
       return axios({
         method: "get",
         url: "/pizza/" + id,
-        changeOrigin: true
+        changeOrigin: true,
       })
-        .then(response => {
+        .then((response) => {
           this.pizzaTopping = response.data;
           console.log(this.pizzaTopping);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("the error has occured: " + error);
         });
     },
@@ -359,15 +411,15 @@ export default {
       return axios({
         method: "post",
         url: "/order",
-        data: order
+        data: order,
       })
-        .then(response => {
+        .then((response) => {
           console.log("man injam  hminja");
           this.returnOrder = response.data;
           this.showDelInfo = true;
           this.showBascket = false;
         })
-        .catch(error => {
+        .catch((error) => {
           alert("unvalid input");
         });
     },
@@ -392,9 +444,9 @@ export default {
             street: null,
             city: null,
             country: null,
-            zipcode: null
+            zipcode: null,
           },
-          pizzas: []
+          pizzas: [],
         };
 
         showBascket = false;
@@ -410,14 +462,14 @@ export default {
       return axios({
         method: "get",
         url: "/order/deliverytime/" + orderid,
-        changeOrigin: true
+        changeOrigin: true,
       })
-        .then(response => {
+        .then((response) => {
           this.showOrderDetail = true;
           this.finalDeliveryTime = response.data;
           console.log(this.finalDeliveryTime);
         })
-        .catch(error => {
+        .catch((error) => {
           alert("unvalid input");
         });
     },
@@ -428,13 +480,13 @@ export default {
     showModalMenu() {
       this.showMenu = true;
       this.showBascket = false;
-    }
+    },
   },
-  mounted() {
-    this.getPizza().then(response => {
-      this.pizzas = response.data;
-    });
-  }
+  // mounted() {
+  //   this.getPizza().then(response => {
+  //     this.pizzas = response.data;
+  //   });
+  // }
 };
 </script>
 <style>

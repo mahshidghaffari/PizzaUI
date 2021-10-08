@@ -44,13 +44,10 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+
 
 export default {
   name: "Home",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       slide: 0,
@@ -89,6 +86,7 @@ export default {
 
 .slide_container {
   position: relative;
+  height: 90vh;
 }
 
 .sr-only {
