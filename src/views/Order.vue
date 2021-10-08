@@ -391,7 +391,6 @@ export default {
       })
         .then((response) => {
           this.pizzaTopping = response.data;
-          console.log(this.pizzaTopping);
         })
         .catch((error) => {
           console.log("the error has occured: " + error);
@@ -399,7 +398,6 @@ export default {
     },
     addPizza(pizza_id) {
       this.order.pizzas.push(pizza_id);
-      console.log(pizza_id);
     },
 
     hideModal() {
@@ -467,7 +465,6 @@ export default {
         .then((response) => {
           this.showOrderDetail = true;
           this.finalDeliveryTime = response.data;
-          console.log(this.finalDeliveryTime);
         })
         .catch((error) => {
           alert("unvalid input");

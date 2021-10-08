@@ -9,7 +9,9 @@ export const services = {
   getDessert,
   getDrinks,
   postCustomerInfoService,
-  postOrderService
+  postOrderService,
+  getOrderInfoService,
+  cancelOrderService
 
 }
 
@@ -55,6 +57,25 @@ function postOrderService(order){
     data: order
   })
 }
+
+function getOrderInfoService(purchase_id){
+  return axios({
+    method:"get",
+    url:"/purchase",
+    changeOrigin: true,
+    params: { purchase_id: purchase_id }
+  })
+}
+
+function cancelOrderService(purchase_id){
+  return axios({
+    method:"put",
+    url:"/purchase",
+    changeOrigin: true,
+    params: { purchase_id: purchase_id }
+  })
+}
+
 
 // function getSejamiJobs() {
 //   return axios({

@@ -38,17 +38,17 @@
                   class="inline-block"
                 ></b-form-input>
               </b-form-group>
-              <!---------------Twon------------------->
+              <!---------------Town------------------->
               <b-form-group
                 id="input-group-1"
-                label="Twon:"
+                label="Town:"
                 label-for="input-1"
                 class="mb-3"
               >
                 <b-form-input
                   id="input-1"
                   v-model="customerInfo.town"
-                  placeholder="Twon"
+                  placeholder="Town"
                   required
                   class="inline-block"
                 ></b-form-input>
@@ -199,12 +199,14 @@
     </b-row>
     <!-- submit button  -->
     <b-row
-      class="py-2  px-3 mt-3"
+      class="py-2 px-3 mt-3"
       style="border-radius: 15px"
       v-show="order.pizzas.length != 0"
     >
       <b-col cols="12" class="text-center">
-        <b-button @click="submitOrder()" variant="outline-success">Place your orde</b-button>
+        <b-button @click="submitOrder()" variant="outline-success"
+          >Place your order</b-button
+        >
       </b-col>
     </b-row>
   </b-container>
@@ -215,6 +217,7 @@
 <script>
 import axios from "axios";
 import { mapActions, mapMutations, mapState } from "vuex";
+
 
 // this for bacck API
 axios.defaults.baseURL = "http://localhost:5000";
@@ -233,14 +236,17 @@ export default {
   },
   methods: {
     // ...mapMutations("orderStore", ["submitCustomerStore"]),
-    ...mapActions("orderStore", ["postCustomerInfo","postOrder"]),
+    ...mapActions("orderStore", ["postCustomerInfo", "postOrder"]),
 
     onSubmitCustomer() {
       this.postCustomerInfo();
     },
-    submitOrder(){
+    submitOrder() {
       this.postOrder();
-    }
+      this.$router.push({ path: "/myOrder" });
+      // console.log("khar")
+     
+    },
   },
 };
 </script>

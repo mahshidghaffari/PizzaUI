@@ -9,7 +9,7 @@ const state = {
         pizzas: [],
         drinks: [],
         desserts: [],
-        discount_code: ''
+        discount_code: NaN
     },
     customerInfo: {
         customer_name: '',
@@ -20,11 +20,17 @@ const state = {
         phone_number: 0
     },
     returnOrder: {
+        customer_id: '',
         discount_code: '',
         purchase_id: '',
         time_estimated_delivery: '',
-        total_cost: ''
-    }
+        time_ordered:'',
+        total_cost: '',
+        pizzas: [],
+        drinks: [],
+        desserts: []
+    },
+    showReturnOrder: false
 
 
 }
@@ -79,7 +85,6 @@ const mutations = {
             state.order.desserts.push(tempDessert)
         }
 
-        console.log(state.order.desserts)
     },
     addDrinkStore(state, drink) {
         let isDrinkFound = false;
@@ -114,11 +119,19 @@ const mutations = {
     },
     postCustomerSuccess(state, data) {
         state.order.customer_id = data.data.customer_id
+ 
 
     },
     postOrderSuccess(state,data) {
         state.returnOrder = data.data
-        console.log(state.returnOrder)
+        state.showReturnOrder = true
+    },
+    getOrderInfoSuccess(state,data){
+        state.returnOrder = data.data
+        state.showReturnOrder = true
+    },
+    cancelOrderSuccess(state,data){
+        alert(data.message)
     }
 }
 
@@ -131,14 +144,30 @@ const actions = {
             alert(error)
         })
     },
+
     postOrder({ state, commit }) {
         services.postOrderService(state.order).then(response => {
+            console.log("check in here ++>" +response.data)
             commit('postOrderSuccess', response.data)
         }, error => {
             alert(error)
         })
-
+    },
+    getOrderInfo({state, commit}){
+        services.getOrderInfoService(state.returnOrder.purchase_id).then(response =>{
+            commit('getOrderInfoSuccess',response.data)
+        },error =>{
+            console.log(error)
+        })
+    },
+    CancelOrder({state,commit}){
+        services.cancelOrderService(state.returnOrder.purchase_id).then(response =>{
+            commit('cancelOrderSuccess',response.data)
+        },error =>{
+            console.log(error)
+        })
     }
+    
 }
 
 
