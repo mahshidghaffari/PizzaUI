@@ -48,6 +48,15 @@
               <span v-if="pizza.vegetarian" class="text-success">YES</span>
               <span v-else class="text-danger">NO</span>
             </p>
+            <p class="mb-0">
+              Topping :
+              <span v-for="(topping, index) in pizza.toppings" :key="index"
+                >{{ topping }}
+                <span v-show="index != pizza.toppings.length - 1 ">
+                  ,</span
+                >
+              </span>
+            </p>
 
             <p class="mb-0">
               Price :
@@ -61,14 +70,6 @@
                 variant="success"
                 class="btn-sm mx-1"
                 >Add</b-button
-              >
-              <b-button
-                v-b-modal.modal-1
-                @click="getTest()"
-                variant="warning"
-                class="btn-sm"
-                v-model="pizza.id"
-                >Topping</b-button
               >
             </b-col>
           </b-row>
@@ -99,17 +100,18 @@
           </b-card-text>
           <b-row class="h-10">
             <b-col>
-              <b-button variant="success" class="btn-sm mx-1"  @click="addDessert(dessert)">Add</b-button>
-              <b-button v-b-modal.modal-1 variant="warning" class="btn-sm"
-                >Topping</b-button
+              <b-button
+                variant="success"
+                class="btn-sm mx-1"
+                @click="addDessert(dessert)"
+                >Add</b-button
               >
             </b-col>
           </b-row>
         </b-card>
       </b-col>
-
-      <!-- drink menu -->
     </b-row>
+    <!-- drink menu -->
     <b-row class="w-100 p-5 bg-warning" v-show="showDrinks">
       <b-col
         cols="2"
@@ -133,9 +135,11 @@
           </b-card-text>
           <b-row class="h-10">
             <b-col>
-              <b-button variant="success" class="btn-sm mx-1"  @click="addDrink(drink)">Add</b-button>
-              <b-button v-b-modal.modal-1 variant="warning" class="btn-sm"
-                >Topping</b-button
+              <b-button
+                variant="success"
+                class="btn-sm mx-1"
+                @click="addDrink(drink)"
+                >Add</b-button
               >
             </b-col>
           </b-row>
@@ -169,7 +173,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations("orderStore", ["addPizzaStore","addDessertStore", "addDrinkStore"]),
+    ...mapMutations("orderStore", [
+      "addPizzaStore",
+      "addDessertStore",
+      "addDrinkStore",
+    ]),
     ...mapActions("menuStore", ["getPizza", "getDessert", "getDrinks"]),
     showPizzaMethod() {
       (this.showPizza = true),
@@ -191,13 +199,13 @@ export default {
     addPizza(pizza) {
       this.addPizzaStore(pizza);
     },
-    addDrink(drink){
-      this.addDrinkStore(drink)
+    addDrink(drink) {
+      this.addDrinkStore(drink);
     },
-    addDessert(dessert){
+    addDessert(dessert) {
       // console.log(dessert_id)
-      this.addDessertStore(dessert)
-    }
+      this.addDessertStore(dessert);
+    },
   },
 
   mounted() {

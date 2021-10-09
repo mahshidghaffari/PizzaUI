@@ -180,7 +180,11 @@ const actions = {
     },
     getOrderInfo({state, commit}){
         services.getOrderInfoService(state.returnOrder.purchase_id).then(response =>{
-            commit('getOrderInfoSuccess',response.data)
+            if(response.data){
+                commit('getOrderInfoSuccess',response.data)
+            }else{
+                console.log(response)
+            }
         },error =>{
             console.log(error)
         })
@@ -195,6 +199,23 @@ const actions = {
     
     
 }
+
+// export function getCaptcha({commit}) { 
+//     commit('getCaptchaRequest'); 
+//     userService.getCaptcha() 
+//       .then( 
+//         (response) => { 
+//           if (response.data && response.data.cti) { 
+//             commit('getCaptchaSuccess', {cid: response.data.cti}); 
+//           } else { 
+//             commit('getCaptchaFailure'); 
+//           } 
+//         }, 
+//         (error) => { 
+//           commit('Failure', error); 
+//         }, 
+//       ); 
+//   } 
 
 
 export const orderStore = {
