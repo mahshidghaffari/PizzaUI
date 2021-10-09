@@ -1,9 +1,13 @@
 <template>
   <b-row>
-    <b-col cols="8" class="bg-warning m-5 p-5 ">
+    <b-col cols="8" class="bg-warning m-5 p-5">
       <h1>Team Members:</h1>
-      <h4>Parand Mohri<span class="text-primary">i6234307</span></h4>
-      <h4>Mahshid Ghaffari<span class="text-primary">i6255207</span></h4>
+      <h6>-----------------------------------------------</h6>
+      <h4>Parand Mohri<span class="text-primary"> 6234307</span></h4>
+      <h4>Mahshid Ghaffari<span class="text-primary"> 6255207</span></h4>
+      <h6>-----------------------------------------------</h6>
+      <h4>Leon Debnath<span class="text-primary"> 6252320</span></h4>
+      <h4>Konstantin Sandfort<span class="text-primary"> 6255681</span></h4>
     </b-col>
   </b-row>
 </template>
@@ -16,7 +20,7 @@ export default {
   data() {
     return {
       slide: 0,
-      sliding: null
+      sliding: null,
     };
   },
   methods: {
@@ -25,8 +29,8 @@ export default {
     },
     onSlideEnd(slide) {
       this.sliding = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

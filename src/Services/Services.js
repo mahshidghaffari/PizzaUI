@@ -12,7 +12,6 @@ export const services = {
   postOrderService,
   getOrderInfoService,
   cancelOrderService
-
 }
 
 function getPizza() {
@@ -111,18 +110,5 @@ function cancelOrderService(purchase_id){
 
 
 
-// getPizza(succes, error) {
-//   return axios({
-//     method: "get",
-//     url: "/pizza",
-//     changeOrigin: true,
-//   }).then(
-//     (response) => {
-//       succes(response.data);
-//     },
-//     (response) => {
-//       error(response);
-//     }
-//   );
-// },
+
 

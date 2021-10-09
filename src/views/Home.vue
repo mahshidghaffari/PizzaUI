@@ -35,7 +35,7 @@
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
     </b-carousel>
     <div class="f-btn btn_menu w-75 px-auto">
-      <b-button class="mx-5 w-25 py-2 f-btn" animation="cylon" pill variant="warning" href="/order"> Order
+      <b-button class="mx-5 w-25 py-2 f-btn" animation="cylon" pill variant="warning" href="/menu"> Order
       </b-button>
       <b-button class="mx-5 w-25 py-2 f-btn" pill variant="danger" href="/myOrder">My Order</b-button>
     </div>

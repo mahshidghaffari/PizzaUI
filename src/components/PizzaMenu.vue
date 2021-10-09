@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5">
+  <div class="px-5">
     <b-row class="w-100 mb-3">
       <b-col cols="2">
         <b-button
@@ -76,7 +76,7 @@
       </b-col>
       <!-- dessert menu -->
     </b-row>
-    <b-row class="w-100 p-5 bg-danger" v-show="showDessert">
+    <b-row class="w-100 p-5 bg-warning" v-show="showDessert">
       <b-col
         cols="2"
         v-for="(dessert, dessert_id) in desertList"
@@ -110,7 +110,7 @@
 
       <!-- drink menu -->
     </b-row>
-    <b-row class="w-100 p-5 bg-info" v-show="showDrinks">
+    <b-row class="w-100 p-5 bg-warning" v-show="showDrinks">
       <b-col
         cols="2"
         v-for="(drink, index) in drinkList"

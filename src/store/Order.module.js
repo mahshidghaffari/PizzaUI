@@ -119,18 +119,43 @@ const mutations = {
     },
     postCustomerSuccess(state, data) {
         state.order.customer_id = data.data.customer_id
- 
-
+        state.customerInfo= {
+            customer_name: '',
+            house_number: '',
+            street: '',
+            town: '',
+            postcode: '',
+            phone_number: 0
+        }
     },
     postOrderSuccess(state,data) {
         state.returnOrder = data.data
         state.showReturnOrder = true
+        state.order = {
+            customer_id: '',
+            pizzas: [],
+            drinks: [],
+            desserts: [],
+            discount_code: ''
+        }
     },
     getOrderInfoSuccess(state,data){
         state.returnOrder = data.data
         state.showReturnOrder = true
     },
     cancelOrderSuccess(state,data){
+        state.returnOrder= {
+            customer_id: '',
+            discount_code: '',
+            purchase_id: '',
+            time_estimated_delivery: '',
+            time_ordered:'',
+            total_cost: '',
+            pizzas: [],
+            drinks: [],
+            desserts: []
+        }
+        state.showReturnOrder = false
         alert(data.message)
     }
 }
@@ -164,9 +189,10 @@ const actions = {
         services.cancelOrderService(state.returnOrder.purchase_id).then(response =>{
             commit('cancelOrderSuccess',response.data)
         },error =>{
-            console.log(error)
+            console.log("error")
         })
     }
+    
     
 }
 

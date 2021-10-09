@@ -19,7 +19,7 @@
             <strong>Customer Id :{{ returnOrder.customer_id }}</strong>
           </p>
           <p>
-            <strong>Otrder Id :{{ returnOrder.order_id }}</strong>
+            <strong>Otrder Id :{{ returnOrder.purchase_id }}</strong>
           </p>
           <p>
             <strong class="text-primary"
