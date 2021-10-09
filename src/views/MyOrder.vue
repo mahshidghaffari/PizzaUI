@@ -38,44 +38,45 @@
             <strong>
               Pizzas :
               <span v-for="(pizza, index) in returnOrder.pizzas" :key="index"
-                >{{ pizza.name }} ,</span
+                >{{ pizza.name }}
+                <span v-show="index != returnOrder.pizzas.length - 1">
+                  ,</span
+                ></span
               >
             </strong>
           </p>
           <p>
             <strong>
               Desserts :
-              <span v-for="(dessert, index) in returnOrder.desserts" :key="index"
-                >{{ dessert.name }} ,</span
+              <span
+                v-for="(dessert, index) in returnOrder.desserts"
+                :key="index"
+                >{{ dessert.name }}
+                <span v-show="index != returnOrder.desserts.length - 1">
+                  ,</span
+                ></span
               >
             </strong>
           </p>
-                    <p>
+          <p>
             <strong>
               Drinks :
               <span v-for="(drink, index) in returnOrder.drinks" :key="index"
-                >{{ drink.name }} ,</span
+                >{{ drink.name }}
+                <span v-show="index != returnOrder.drinks.length - 1">
+                  ,</span
+                ></span
               >
             </strong>
           </p>
         </div>
 
-        <b-button
-          pill
-          variant="success"
-          class="mx-2"
-          @click="getOrderInfo()"
-        >
+        <b-button pill variant="success" class="mx-2" @click="getOrderInfo()">
           <span class="text-light mx-3">Tracking Order</span>
           <b-icon class="text-dark mx-3" icon="bicycle" />
         </b-button>
 
-        <b-button
-          pill
-          variant="danger"
-          class="mx-2"
-          @click="CancelOrder()"
-        >
+        <b-button pill variant="danger" class="mx-2" @click="CancelOrder()">
           <span class="text-light mx-3">Cancel Order</span>
           <b-icon class="text-dark mx-3" icon="x" />
         </b-button>
@@ -96,14 +97,13 @@ export default {
   name: "App",
   components: {},
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    ...mapState("orderStore", ["returnOrder", "order","showReturnOrder"]),
+    ...mapState("orderStore", ["returnOrder", "order", "showReturnOrder"]),
   },
   methods: {
-    ...mapActions("orderStore",["getOrderInfo","CancelOrder"])
+    ...mapActions("orderStore", ["getOrderInfo", "CancelOrder"]),
   },
 };
 </script>
